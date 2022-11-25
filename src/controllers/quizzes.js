@@ -9,8 +9,8 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    quizzes.push({req.body})
-    res.send("Quizzes#Create");
+    quizzes.push(req.body);
+    res.json(quizzes);
 })
 
 router.get('/:id', (req, res) => {
