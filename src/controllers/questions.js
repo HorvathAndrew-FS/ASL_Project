@@ -36,7 +36,7 @@ router.post('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const id = Number(req.params.id);
-    quizzes = questions.filter(q => q.id != id);
+    questions = questions.filter(q => q.id != id);
     res.json(questions);
     
 })
