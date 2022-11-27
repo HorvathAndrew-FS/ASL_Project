@@ -9,20 +9,36 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    quizzes.push(req.body);
+    const { id, name } = req.body
+    quizzes.push({
+        id: Number(id),
+        name
+    });
     res.json(quizzes);
 })
 
 router.get('/:id', (req, res) => {
-    res.send("Quizzes#Show");
+    const id = req.params.id;
+    const quiz = quizzes.find(q => q.id == id);
+    res.json(quiz);
 })
 
 router.post('/:id', (req, res) => {
-    res.send("Quizzes#Update");
+    const id = Number(req.params.id);
+    quizzes.map((q) => {
+        if (id === q.id){
+            q.name = req.body.name;
+        }
+        return q
+    })
+    res.json(quizzes)
 })
 
 router.delete('/:id', (req, res) => {
-    res.send("Quizzes#Delete");
+    const id = Number(req.params.id);
+    quizzes = quizzes.filter(q => q.id != id);
+    res.json(quizzes);
+    
 })
 
 module.exports = router;
