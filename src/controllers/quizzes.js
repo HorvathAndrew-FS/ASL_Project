@@ -9,18 +9,22 @@ router.get('/', async (req, res) => {
     res.json(quizzes);
 })
 
-router.post('/', (req, res) => {
-    const { id, name } = req.body
-    quizzes.push({
-        id: Number(id),
-        name
-    });
-    res.json(quizzes);
+router.post('/', async (req, res) => {
+    const { name } = req.body;
+    const quiz = await Quiz.create({ name });
+    res.json(quiz);
+    // const { id, name } = req.body
+    // quizzes.push({
+    //     id: Number(id),
+    //     name
+    // });
+    // res.json(quizzes);
 })
 
 router.get('/:id', (req, res) => {
-    const id = req.params.id;
-    const quiz = quizzes.find(q => q.id == id);
+    // const id = req.params.id;
+    // const quiz = quizzes.find(q => q.id == id);
+    const quiz = Quiz.findByPk
     res.json(quiz);
 })
 
