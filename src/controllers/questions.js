@@ -1,42 +1,38 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
+const { Question } = require('../models');
 router.use(bodyParser.urlencoded({ extended: false }));
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    const questions = await Quiz.findAll();
     res.json(questions);
 })
 
-router.post('/', (req, res) => {
-    const { id, name } = req.body
-    questions.push({
-        id: Number(id),
-        name
-    });
-    res.json(questions);
-})
-
-router.get('/:id', (req, res) => {
-    const id = req.params.id;
-    const question = questions.find(q => q.id == id);
+router.post('/', async (req, res) => {
+    const { name } = req.body;
+    const question = await Question.create({ name });
     res.json(question);
 })
 
-router.post('/:id', (req, res) => {
-    const id = Number(req.params.id);
-    questions.map((q) => {
-        if (id === q.id){
-            q.name = req.body.name;
-        }
-        return q
-    })
-    res.json(questions)
+router.get('/:id', async (req, res) => {
+    const question = await Question.findByPk(req.params.id);
+    res.json(question);
 })
 
-router.delete('/:id', (req, res) => {
-    const id = Number(req.params.id);
-    questions = questions.filter(q => q.id != id);
-    res.json(questions);
+router.post('/:id', async (req, res) => {
+    const { name } = req.body;
+    const { id } = req.params;
+    const question = await Question.update({ name }, {where: { id }});
+    res.json(question);
+})
+
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    const deleted = await Question.destroy({
+        where: { id }
+    });
+    res.redirect('/questions');
     
 })
 
