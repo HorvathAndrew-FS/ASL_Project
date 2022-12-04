@@ -5,7 +5,7 @@ const { Question } = require('../models');
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/', async (req, res) => {
-    const questions = await Quiz.findAll();
+    const questions = await Question.findAll();
     res.json(questions);
 })
 
