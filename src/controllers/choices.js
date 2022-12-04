@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
     res.json(choices);
 })
 
-outer.post('/:id', async (req, res) => {
+router.post('/:id', async (req, res) => {
     const { name } = req.body;
     const { id } = req.params;
     const choices = await Choice.update({ name }, { where: { id }});
