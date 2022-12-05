@@ -16,7 +16,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return Promise.all([queryInterface.removeColumn('Quizzes', 'Weight')
-  ]);
-}
+    return Promise.all([queryInterface.removeColumn('Quizzes', 'Weight')]);
+  }
 };
