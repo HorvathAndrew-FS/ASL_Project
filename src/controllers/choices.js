@@ -24,7 +24,7 @@ router.post('/:id', async (req, res) => {
     const { name } = req.body;
     const { id } = req.params;
     const choices = await Choice.update({ name }, { where: { id }});
-    res.json(Choices);
+    res.json(choices);
 })
 
 router.delete('/:id', async (req, res) => {
