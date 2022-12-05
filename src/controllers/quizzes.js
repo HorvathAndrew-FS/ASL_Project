@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const { name } = req.body;
     const { weight } = req.body;
-    const quiz = await Quiz.create({ name }, { weight });
+    const quiz = await Quiz.create({ name, weight });
     res.json(quiz);
 })
 
@@ -23,8 +23,9 @@ router.get('/:id', async (req, res) => {
 
 router.post('/:id', async (req, res) => {
     const { name } = req.body;
+    const { weight } = req.body;
     const { id } = req.params;
-    const quiz = await Quiz.update({ name }, {where: { id }});
+    const quiz = await Quiz.update({ name, weight }, {where: { id }});
     res.json(quiz);
 })
 
