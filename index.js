@@ -10,7 +10,7 @@ app.set('view engine', 'twig');
 
 app.get('/', async (req, res) => {
     const quiz = await Quiz.findByPk(11);
-    res.render('index', {
+    res.render('home/index', {
       quiz
     });
 });
