@@ -1,11 +1,11 @@
-{% if quiz %}
+{% if choice %}
     <form action="/choices/{{ choice.id }}" method="post">
 {% else %}
     <form action="/choices/" method="post">
 {% endif %}
     <div>
         <label for="name">Name: </label>
-            {% if quiz %}
+            {% if choice %}
                 <input id="name" type="text" name="name" value="{{ choice.name }}"/>
             {% else %}
                 <input id="name" type="text" name="name"/>
