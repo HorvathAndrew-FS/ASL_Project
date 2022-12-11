@@ -5,7 +5,11 @@
 {% endif %}
     <div>
         <label for="name">Name: </label>
-        <input id="name" type="text" name="name" />
+            {% if quiz %}
+                <input id="name" type="text" name="name" value="{{ quiz.name }}"/>
+            {% else %}
+                <input id="name" type="text" name="name"/>
+            {% endif %}
     </div>
     <button type="submit">Submit</button>
 </form>

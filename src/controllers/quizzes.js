@@ -6,7 +6,12 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/', async (req, res) => {
     const quizzes = await Quiz.findAll();
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(quizzes)
+    } else {
+
     res.render('quiz/index', { quizzes });
+    }
 })
 
 router.get('/new', (req, res) => {
@@ -17,12 +22,20 @@ router.post('/', async (req, res) => {
     const { name } = req.body;
     const { weight } = req.body;
     const quiz = await Quiz.create({ name, weight });
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(quiz)
+    } else {
     res.redirect('/quizzes/' + quiz.id);
+    }
 })
 
 router.get('/:id', async (req, res) => {
     const quiz = await Quiz.findByPk(req.params.id);
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(quiz)
+    } else {
     res.render('quiz/show', { quiz });
+    }
 })
 
 router.get('/:id/edit', async (req, res) => {
@@ -35,15 +48,23 @@ router.post('/:id', async (req, res) => {
     const { weight } = req.body;
     const { id } = req.params;
     const quiz = await Quiz.update({ name, weight }, {where: { id }});
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(quiz)
+    } else {
     res.redirect('/quizzes/' + id);
+    }
 })
 
-router.delete('/:id/delete', async (req, res) => {
+router.get('/:id/delete', async (req, res) => {
     const { id } = req.params;
     const deleted = await Quiz.destroy({
         where: { id }
     });
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json({'success': true})
+    } else {
     res.redirect('/quizzes');
+    }
     
 })
 
