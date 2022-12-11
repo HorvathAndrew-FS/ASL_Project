@@ -35,7 +35,7 @@ router.post('/:id', async (req, res) => {
     const { weight } = req.body;
     const { id } = req.params;
     const quiz = await Quiz.update({ name, weight }, {where: { id }});
-    res.render(quiz);
+    res.redirect('/quizzes/' + id);
 })
 
 router.delete('/:id/delete', async (req, res) => {
