@@ -19,9 +19,9 @@ router.get('/new', (req, res) => {
 
 router.post('/', async (req, res) => {
     const { name } = req.body;
-    const choices = await Choice.create({ name });
+    const choice = await Choice.create({ name });
     if(req.headers.accept.indexOf('/json') > -1) {
-        res.json(choices)
+        res.json(choice)
     } else {
     res.redirect('/choices/' + choice.id);
     }
@@ -52,7 +52,7 @@ router.post('/:id', async (req, res) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id/delete', async (req, res) => {
     const { id } = req.params;
     const deleted = await Choice.destroy({
         where: { id }
