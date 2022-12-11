@@ -25,27 +25,43 @@ router.post('/', async (req, res) => {
     } else {
     res.redirect('/choices/' + choice.id);
     }
-    res.json(choices);
 })
 
 router.get('/:id', async (req, res) => {
-    const choices = await Choice.findByPk(req.params.id);
-    res.json(choices);
+    const choice = await Choice.findByPk(req.params.id);
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(choice)
+    } else {
+    res.render('choice/show', { choice });
+    }
+})
+
+router.get('/:id/edit', async (req, res) => {
+    const choice = await Choice.findByPk(req.params.id)
+    res.render('choice/edit', { choice });
 })
 
 router.post('/:id', async (req, res) => {
     const { name } = req.body;
     const { id } = req.params;
-    const choices = await Choice.update({ name }, { where: { id }});
-    res.json(choices);
+    const choice = await Choice.update({ name }, { where: { id }});
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(choice)
+    } else {
+    res.redirect('/choices/' + id);
+    }
 })
 
-router.delete('/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const deleted = await Choice.destroy({
         where: { id }
     });
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json({'success': true})
+    } else {
     res.redirect('/choices');
+    }
     
 })
 
