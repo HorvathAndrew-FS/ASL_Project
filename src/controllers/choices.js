@@ -5,13 +5,26 @@ const { Choice } = require('../models');
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/', async (req, res) => {
-        const choices = await Choice.findAll();
-    res.json(choices);
+    const choices = await Choice.findAll();
+     if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(choices);
+    } else {
+    res.render('choice/index', { choices });
+    }
+})
+
+router.get('/new', (req, res) => {
+    res.render('choice/create')
 })
 
 router.post('/', async (req, res) => {
     const { name } = req.body;
     const choices = await Choice.create({ name });
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(choices)
+    } else {
+    res.redirect('/choices/' + choice.id);
+    }
     res.json(choices);
 })
 
