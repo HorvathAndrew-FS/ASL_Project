@@ -5,34 +5,63 @@ const { Question } = require('../models');
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/', async (req, res) => {
-    const questions = await Question.findAll();
-    res.json(questions);
+    const question = await Question.findAll();
+     if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(question);
+    } else {
+    res.render('question/index', { question });
+    }
+})
+
+router.get('/new', (req, res) => {
+    res.render('question/create')
 })
 
 router.post('/', async (req, res) => {
     const { name } = req.body;
-    const question = await Question.create({ name });
-    res.json(question);
+    const choice = await Question.create({ name });
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(choice)
+    } else {
+    res.redirect('/questions/' + question.id);
+    }
 })
 
 router.get('/:id', async (req, res) => {
     const question = await Question.findByPk(req.params.id);
-    res.json(question);
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(question)
+    } else {
+    res.render('question/show', { question });
+    }
+})
+
+router.get('/:id/edit', async (req, res) => {
+    const question = await Question.findByPk(req.params.id)
+    res.render('question/edit', { question });
 })
 
 router.post('/:id', async (req, res) => {
     const { name } = req.body;
     const { id } = req.params;
-    const question = await Question.update({ name }, {where: { id }});
-    res.json(question);
+    const question = await Question.update({ name }, { where: { id }});
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json(question)
+    } else {
+    res.redirect('/question/' + id);
+    }
 })
 
-router.delete('/:id', async (req, res) => {
+router.get('/:id/delete', async (req, res) => {
     const { id } = req.params;
     const deleted = await Question.destroy({
         where: { id }
     });
+    if(req.headers.accept.indexOf('/json') > -1) {
+        res.json({'success': true})
+    } else {
     res.redirect('/questions');
+    }
     
 })
 

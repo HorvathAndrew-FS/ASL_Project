@@ -1,12 +1,12 @@
-{% if choice %}
-    <form action="/choices/{{ choice.id }}" method="post">
+{% if question %}
+    <form action="/question/{{ question.id }}" method="post">
 {% else %}
-    <form action="/choices/" method="post">
+    <form action="/question/" method="post">
 {% endif %}
     <div>
         <label for="name">Name: </label>
-            {% if choice %}
-                <input id="name" type="text" name="name" value="{{ choice.name }}"/>
+            {% if question %}
+                <input id="name" type="text" name="name" value="{{ question.name }}"/>
             {% else %}
                 <input id="name" type="text" name="name"/>
             {% endif %}
