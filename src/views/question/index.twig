@@ -2,16 +2,16 @@
 
 {% block main_content %}
     <ul>
-        {% for choice in choices %}
-            <li>{{ choice.name }} - 
-            <a href="/choices/{{ choice.id }}/edit">Edit Choice</a>
+        {% for question in questions %}
+            <li>{{ question.name }} - 
+            <a href="/question/{{ question.id }}/edit">Edit Question</a>
             |
-            <a href="/choices/{{ choice.id }}/delete">Delete Choice</a>
+            <a href="/question/{{ question.id }}/delete">Delete Question</a>
             </li>
         {% endfor %}
     </ul>
     <p>
-        <a href="/choices/new">Create New Choice</a>
+        <a href="/questions/new">Create a New Question</a>
     </p>
 
 

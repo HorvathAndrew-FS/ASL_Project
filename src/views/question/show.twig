@@ -2,12 +2,12 @@
 
 {% block main_content %}
     <div>
-        <h1>{{ choice.name }}</h1>
-        <p><strong>ID: </strong>{{ choice.id }}</p>
-        <p><strong>Created At: </strong>{{ choice.createdAt }}</p>
-        <p><strong>Upadated Last: </strong>{{ choice.updatedAt }}</p>
+        <h1>{{ question.name }}</h1>
+        <p><strong>ID: </strong>{{ question.id }}</p>
+        <p><strong>Created At: </strong>{{ question.createdAt }}</p>
+        <p><strong>Upadated Last: </strong>{{ question.updatedAt }}</p>
 
-        <p><a href="/choices/{{ choice.id }}/delete">Delete Choice</a></p>
+        <p><a href="/questions/{{ question.id }}/delete">Delete Question</a></p>
     
 
     </div>
