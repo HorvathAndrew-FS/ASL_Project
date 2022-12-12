@@ -1,7 +1,7 @@
 {% if question %}
-    <form action="/question/{{ question.id }}" method="post">
+    <form action="/questions/{{ question.id }}" method="post">
 {% else %}
-    <form action="/question/" method="post">
+    <form action="/questions/" method="post">
 {% endif %}
     <div>
         <label for="name">Name: </label>

@@ -4,9 +4,9 @@
     <ul>
         {% for question in questions %}
             <li>{{ question.name }} - 
-            <a href="/question/{{ question.id }}/edit">Edit Question</a>
+            <a href="/questions/{{ question.id }}/edit">Edit Question</a>
             |
-            <a href="/question/{{ question.id }}/delete">Delete Question</a>
+            <a href="/questions/{{ question.id }}/delete">Delete Question</a>
             </li>
         {% endfor %}
     </ul>
