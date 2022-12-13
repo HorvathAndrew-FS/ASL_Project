@@ -2,9 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
 const { Question } = require('../models');
- router.use(bodyParser.urlencoded({ extended: false }));
+const { isAuthenticated } = require('../middleware/auth');
+router.use(bodyParser.urlencoded({ extended: false }));
 
- router.get('/', async (req, res) => {
+ router.get('/', isAuthenticated, async (req, res) => {
      const questions = await Question.findAll();
      if (req.headers.accept.indexOf('/json') > -1) {
         res.json(questions);
@@ -13,11 +14,11 @@ const { Question } = require('../models');
      }
  })
 
- router.get('/new', (req, res) => {
+ router.get('/new', isAuthenticated, (req, res) => {
     res.render('question/create')
 })
 
- router.post('/', async (req, res) => {
+ router.post('/', isAuthenticated, async (req, res) => {
      const { name } = req.body;
      const question = await Question.create({ name });
      if(req.headers.accept.indexOf('/json') > -1) {
@@ -27,7 +28,7 @@ const { Question } = require('../models');
      }
  })
 
- router.get('/:id', async (req, res) => {
+ router.get('/:id', isAuthenticated, async (req, res) => {
      const question = await Question.findByPk(req.params.id);
      if(req.headers.accept.indexOf('/json') > -1) {
         res.json(question);
@@ -36,12 +37,12 @@ const { Question } = require('../models');
     }
  })
 
- router.get('/:id/edit', async (req, res) => {
+ router.get('/:id/edit', isAuthenticated, async (req, res) => {
     const question = await Question.findByPk(req.params.id)
     res.render('question/edit', { question });
 })
 
- router.post('/:id', async (req, res) => {
+ router.post('/:id', isAuthenticated, async (req, res) => {
      const { name } = req.body;
      const { id } = req.params;
      const question = await Question.update({ name }, {where: { id }});
@@ -52,7 +53,7 @@ const { Question } = require('../models');
      }
  })
 
- router.get('/:id/delete', async (req, res) => {
+ router.get('/:id/delete', isAuthenticated, async (req, res) => {
      const { id } = req.params;
      const deleted = await Question.destroy({
          where: { id }
