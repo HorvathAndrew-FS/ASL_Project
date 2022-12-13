@@ -8,7 +8,7 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/callback', async (req, res) => {
-    const { code } = req.query;
+    const { code } = req.query
     await request({
         uri: 'https://github.com/login/oauth/access_token',
         qs: { 

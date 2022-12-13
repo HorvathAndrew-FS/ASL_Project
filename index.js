@@ -8,7 +8,6 @@ const authCtrl = require('./src/controllers/auth');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 app.use(session({
-  resave: false,
   saveUninitialized: false,
   secret: 'chunky monkey',
   cookie: { maxAge: 60000 }
