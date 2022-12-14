@@ -3,7 +3,11 @@
 {% block main_content %}
 	<ul>
 		{% for quiz in quizzes %}
-			<li>{{ quiz.name }}
+			<li>
+				<strong>{{ 'Name: ' }}</strong>
+				{{ quiz.name }}
+				<strong>{{ 'Weight: ' }}</strong>
+				{{ quiz.weight }}{{ '%' }}
 				-
 				<a href="/quizzes/{{ quiz.id }}/edit">Edit Quiz</a>
 				|
@@ -17,6 +21,4 @@
 	<p>
 		<a href="/">Home</a>
 	</p>
-
-
 {% endblock %}
